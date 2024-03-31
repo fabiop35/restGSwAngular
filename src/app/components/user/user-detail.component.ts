@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { User } from '../../user';
 import { ReqresService } from '../../services/reqres.service';
@@ -9,7 +9,7 @@ import { ReqresService } from '../../services/reqres.service';
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.css'
 })
-export class UserDetailComponent {
+export class UserDetailComponent implements OnInit {
 
   user: User = {
     id: 0,
@@ -20,7 +20,8 @@ export class UserDetailComponent {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private reqresService: ReqresService) {
+    private reqresService: ReqresService,
+    private router: Router) {
 
     this.activatedRoute.params.subscribe((params) => {
       reqresService.getUser(params['id'])
@@ -29,4 +30,11 @@ export class UserDetailComponent {
 
   }
 
+  ngOnInit() {
+  }
+
+  save(): void {
+    this.reqresService.updateUser(this.user)
+      .subscribe(() => this.router.navigate( ['users'] ));
+  }
 }

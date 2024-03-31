@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app.routes';
 import { AppComponent } from './app.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './services/in-memory-data.service';
@@ -13,6 +14,9 @@ import { ContactComponent } from './components/contact/contact.component';
 import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserDetailComponent } from './components/user/user-detail.component';
+import { UserAddComponent } from './components/user/user-add.component';
+import { LoadingComponent } from './components/shared/loading/loading.component';
+import { NoimagePipe } from './pipes/noimage.pipe';
 
 @NgModule({
   declarations: [
@@ -21,14 +25,19 @@ import { UserDetailComponent } from './components/user/user-detail.component';
     AboutComponent,
     ContactComponent,
     HomeComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    UserAddComponent,
+    LoadingComponent,
+    NoimagePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false })
+      InMemoryDataService, { dataEncapsulation: false, delay: 1500 }),
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
